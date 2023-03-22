@@ -9,7 +9,7 @@ const getAll = (req: Request, res: Response) => {
     movies.find().then((movies) => {
         return res.send(movies);
     }).catch(err => {
-        return res.status(400).send("Do not exist movies");
+        return res.status(400).send("Movies not found");
     })
 };
 
@@ -22,11 +22,11 @@ const get = async (req: Request, res: Response) => {
     try {
         const movie = await movies.findById(id);
         if (!movie) {
-            return res.status(404).send({ err: "Movie does not exist" });
+            return res.status(404).send({ err: "Movie not found" });
         }
         return res.send(movie);
     } catch (e) {
-        return res.status(400).send({ err: "Movie does not exist" });
+        return res.status(400).send({ err: "Movie not found" });
     }
 
 };
@@ -44,7 +44,7 @@ const create = async (req: Request, res: Response) => {
     const result = await movie.save();
 
     return res.status(200).json({
-        message: 'Movie Register Sucess',
+        message: 'Movie Registered succesful',
         data: {
             title,
             year,
